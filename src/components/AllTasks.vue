@@ -1,6 +1,6 @@
 <template>
     <div v-for="task in tasks" :key="task.id">
-        <Task :task="task"/>
+        <Task @change-reminder="$emit('change-reminder', task.id)" @delete-task="$emit('delete-task', task.id)" :task="task"/>
     </div>
 
 </template>
@@ -15,6 +15,8 @@ import Task from './SingleTask.vue'
 
         props:{
             tasks:Array
-        }
+        },
+        emits:['delete-task', 'change-reminder']
+
     }
 </script>
