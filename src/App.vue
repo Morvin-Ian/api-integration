@@ -1,26 +1,64 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<template > 
+  <div class="container">
+    <Header title="Task Tracker"/>
+    <Tasks :tasks="tasks" />
+  </div>
 </template>
 
+
+
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/HeaderComponent.vue'
+import Tasks from './components/AllTasks.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header, 
+    Tasks
+  },
+
+  data(){
+    return{
+      tasks : []
+    }
+  }, 
+
+  created(){
+    this.tasks = [
+      {
+        id:1, 
+        text:"JavaScript Coding",
+        date:"March 11th at 9 am",
+        reminder:true
+      },
+      {
+        id:2, 
+        text:"UFC Fights",
+        date:"March 17th at 11 pm",
+        reminder:true
+      },
+      {
+        id:3, 
+        text:"Golf course",
+        date:"April 11th at 12 noon",
+        reminder:false
+      }
+    ]
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+
+.container{
+    border: 1px solid rgb(0, 163, 184);
+    padding: 10px;
+    border-radius: 4px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
 }
+
+
 </style>
