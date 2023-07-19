@@ -1,7 +1,9 @@
 <template > 
   <div class="container">
-    <Header title="Task Tracker"/>
-    <AddTask @new-task="addTask"/>
+    <Header @toggle-add-task="showAddTask=!showAddTask" :showAddTask="showAddTask" title="Task Tracker"/>
+    <div v-show="showAddTask">
+      <AddTask @new-task="addTask"/>
+    </div>
     <Tasks @change-reminder="toggleReminder"  @delete-task="removeTask" :tasks="tasks" />
   </div>
 </template>
@@ -24,46 +26,66 @@ export default {
 
   data(){
     return{
-      tasks : []
+      tasks : [],
+      showAddTask:false
     }
   }, 
 
   methods:{
-    removeTask(id){
-      this.tasks = this.tasks.filter((task)=> task.id !== id)
+    async removeTask(id){
+      const response = await fetch(`http://localhost:5000/tasks/${id}`,
+      {
+        method:'DELETE',
+        headers:{
+          'Content-type':'application/json'
+        },
+
+      })
+
+      response.status === 200 ? (this.tasks = this.tasks.filter((task)=> task.id !== id)) : alert("Error Occured while deleting")
+
+      
     },
     toggleReminder(id){
       this.tasks = this.tasks.map((task) =>
         task.id === id ? {...task, reminder:!task.reminder} : task
       )
     },
-    addTask(task){
-      this.tasks = [...this.tasks,task ]
+    async addTask(task){
+      const response = await fetch("http://localhost:5000/tasks",
+      {
+        method:'POST',
+        headers:{
+          'Content-type':'application/json'
+        },
+
+        body:JSON.stringify(task)
+
+      })
+      const data = await response.json()
+
+      this.tasks = [...this.tasks,data ]
+    },
+     fetchTasks: async ()=> {
+
+      const response =  await fetch("http://localhost:5000/tasks");
+      const data = await response.json()
+      return data
+
+    },
+    fetchTask: async (id)=> {
+
+      const response =  await fetch(`http://localhost:5000/tasks/${id}`);
+      const data = await response.json()
+      return data
+
     }
   },
 
 
-  created(){
-    this.tasks = [
-      {
-        id:1, 
-        text:"JavaScript Coding",
-        date:"March 11th at 9 am",
-        reminder:true
-      },
-      {
-        id:2, 
-        text:"UFC Fights",
-        date:"March 17th at 11 pm",
-        reminder:true
-      },
-      {
-        id:3, 
-        text:"Golf course",
-        date:"April 11th at 12 noon",
-        reminder:false
-      }
-    ]
+  async created(){
+    this.tasks = await this.fetchTasks()
+     
   },
 }
 </script>

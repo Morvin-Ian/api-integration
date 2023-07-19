@@ -1,7 +1,7 @@
 <template>
     <div >
         <h2 style="text-align: center;">{{ title }}</h2>
-        <Button text="Add Task" color="green"/>    
+        <Button @toggle-add-task="$emit('toggle-add-task')" :text="showAddTask ? 'Close' : 'Add Task'" :color="showAddTask ? 'red' : 'green'"/>    
     </div>
 </template>
 
@@ -10,7 +10,8 @@ import Button from './ButtonComponent.vue'
 
 export default{
     props:{
-        title:String
+        title:String,
+        showAddTask:Boolean
     },
     components:{
         Button

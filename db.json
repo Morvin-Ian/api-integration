@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "text": "JavaScript Coding",
+      "date": "March 11th at 9 am",
+      "reminder": true
+    },
+    {
+      "id": 2,
+      "text": "UFC Fights",
+      "date": "March 17th at 11 pm",
+      "reminder": true
+    },
+    {
+      "id": 3,
+      "text": "Golf course",
+      "date": "April 11th at 12 noon",
+      "reminder": false
+    },
+    {
+      "id": 47857,
+      "text": "Mobile Responsiveness",
+      "date": "March 12th 4pm",
+      "reminder": false
+    }
+  ]
+}
