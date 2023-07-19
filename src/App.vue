@@ -1,10 +1,12 @@
 <template > 
+ <router-view></router-view>
   <div class="container">
     <Header @toggle-add-task="showAddTask=!showAddTask" :showAddTask="showAddTask" title="Task Tracker"/>
     <div v-show="showAddTask">
       <AddTask @new-task="addTask"/>
     </div>
     <Tasks @change-reminder="toggleReminder"  @delete-task="removeTask" :tasks="tasks" />
+   
   </div>
 </template>
 
